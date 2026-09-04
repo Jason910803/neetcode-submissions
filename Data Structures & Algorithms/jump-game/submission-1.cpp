@@ -1,0 +1,21 @@
+class Solution {
+private:
+    int solve(const vector<int>& nums, vector<int>& memo, int i) {
+        if (i == 0) return 1;
+        if (memo[i] != -1) return memo[i];
+
+        for (int j = i - 1; j >= 0; j--) {
+            if (solve(nums, memo, j) && j + nums[j] >= i) {
+                return memo[i] = 1;
+            }
+        }
+
+        return memo[i] = 0;
+    }
+
+public:
+    bool canJump(vector<int>& nums) {
+        vector<int> memo(nums.size(), -1);
+        return solve(nums, memo, nums.size() - 1) == 1;
+    }
+};
